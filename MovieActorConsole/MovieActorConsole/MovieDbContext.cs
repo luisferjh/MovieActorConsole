@@ -11,7 +11,7 @@ namespace MovieActorConsole
         public DbSet<Actor> Actors { get; set; }
         public DbSet<Director> Directors { get; set; }
         public DbSet<MovieActor> MovieActors { get; set; }
-        public DbSet<MovieActor> MovieDirector { get; set; }
+        public DbSet<MovieDirector> MovieDirectors { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
