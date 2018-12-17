@@ -14,6 +14,6 @@ namespace MovieActorConsole
 
         public string Email { get; set; }
 
-        public List<MovieDirector> Movies { get; set; }
+        public List<MovieDirector> MovieDirector { get; set; }
     }
 }

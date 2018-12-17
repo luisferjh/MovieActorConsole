@@ -11,5 +11,6 @@ namespace MovieActorConsole
 
         public int DirectorId { get; set; }
         public Director Director { get; set; }
+
     }
 }
