@@ -181,70 +181,149 @@ namespace MovieActorConsole
             ////consultas muchos a muchos
             //using (var context = new MovieDbContext())
             //{
-               
-                //traemos toda la data movieActor
-                //var allMovieActor = context.MovieActors.ToList();
 
-                //traemos toda la data MovieActor incluyendo la informacion de las peliculas y actores
-                //var allMovieActorRelated = context.MovieActors
-                //                           .Include(x => x.Movie).Include(x => x.Actor).ToList();
+            //traemos toda la data movieActor
+            //var allMovieActor = context.MovieActors.ToList();
 
-                //var actor = context.Actors.Select(x => x.ActorId).First();
+            //traemos toda la data MovieActor incluyendo la informacion de las peliculas y actores
+            //var allMovieActorRelated = context.MovieActors
+            //                           .Include(x => x.Movie).Include(x => x.Actor).ToList();
 
-                ////bring all the movies from specific actor
-                //var allMoviesFromActor = context.MovieActors
-                //    .Where(x => x.ActorId == actor)
-                //    .Include(x => x.Movie).ToList();
+            //var actor = context.Actors.Select(x => x.ActorId).First();
 
-                //Console.WriteLine(actor);
+            ////bring all the movies from specific actor
+            //var allMoviesFromActor = context.MovieActors
+            //    .Where(x => x.ActorId == actor)
+            //    .Include(x => x.Movie).ToList();
 
-                //foreach (var item in allMoviesFromActor)
-                //{
-                //    Console.WriteLine(item.Actor.FirtsName);
-                //    Console.WriteLine(item.Movie.Title);
-                //    Console.WriteLine("all read");
+            //Console.WriteLine(actor);
 
-                //}
+            //foreach (var item in allMoviesFromActor)
+            //{
+            //    Console.WriteLine(item.Actor.FirtsName);
+            //    Console.WriteLine(item.Movie.Title);
+            //    Console.WriteLine("all read");
 
-                //Console.WriteLine(allMovieActor);
-                //Console.WriteLine(allMovieActorRelated);
+            //}
+
+            //Console.WriteLine(allMovieActor);
+            //Console.WriteLine(allMovieActorRelated);
             //}
 
 
             //consultas de todo tipo a todas las tablas
+            //using (var context = new MovieDbContext())
+            //{
+            //con FirstOrDefault() cuando encuentr el primer registro que coincida, para la iteracion
+            //y devuelve el que cumpla la primera condicion, siempre devuelve un registro
+            //var movie = context.Movies
+            //                .Where(m => m.Title == "Ready Player One")
+            //                .FirstOrDefault();
+
+
+            //busqueda con clave primaria a travez de find
+            //var movie = context.Movies.Find(4);
+            //Console.WriteLine(movie);
+
+            //var movieDirector = context.MovieDirectors.Find(1, 1);
+            //Console.WriteLine(movieDirector);
+
+            //var allMovieDirectorRelated = context.MovieDirectors
+            //        .Include(x => x.Movie).Include(x => x.Director).ToList();
+
+            //var allMovieActorRelated = context.MovieActors
+            //                               .Include(x => x.Movie).Include(x => x.Actor).ToList();
+
+            //var movieActor = context.MovieActors.Find(2, 5);
+            //Console.WriteLine(movieActor.Movie.Title);
+
+            //var movieD = context.Movies.Where(m => m.Title == "Ready Player One").Include(d => d.MovieDirector).
+
+            //Console.WriteLine(movie.Title);
+            //Console.WriteLine(movie.Genre);
+            //Console.WriteLine(movie.Description);
+            //Console.WriteLine(movie.Rating);
+            //Console.WriteLine(movie.ReleaseDate);
+            //Console.WriteLine(movie.MovieDirector);
+
+            //}
+
+            //agregar una pelicula con la propiedad de navegacion
+            //agregamos un actor y director a la propiedad de navegacion
+            //perteneciente a Movie
             using (var context = new MovieDbContext())
             {
-                //con FirstOrDefault() cuando encuentr el primer registro que coincida, para la iteracion
-                //y devuelve el que cumpla la primera condicion, siempre devuelve un registro
-                //var movie = context.Movies
-                //                .Where(m => m.Title == "Ready Player One")
-                //                .FirstOrDefault();
+                //var actor4 = new Actor
+                //{
+                //    FirtsName = "Christ",
+                //    LastName = "Evans",
+                //    Email = "Chrise@gmail.com"
+                //};
+
+                //context.Actors.Add(actor4);
+                //context.SaveChanges();
+                //Console.WriteLine("Actors saved");
+
+                //var director3 = new Director
+                //{
+                //    FirtsName = "Josh",
+                //    LastName = "Whedon",
+                //    Email = "joshw@gmail.com"
+                //};
+
+                //context.Directors.Add(director3);
+                //context.SaveChanges();
+                //Console.WriteLine("director saved");
+
+                //consultar director
+                //var director = context.Directors.Include(x => x.MovieDirector).Last();
+                //var actor = context.Actors.Select(x => x.ActorId).Last();
+
+                //var movie5 = new Movie
+                //{
+                //    Title = "Avengers Age of Ultron",
+                //    Description = "In the Eastern European country of Sokovia, the Avengers—Tony Stark, Steve Rogers, Thor",
+                //    Genre = "Action, SuperHero, Comedy",
+                //    ReleaseDate = new DateTime(2015, 5, 10),
+                //    Rating = "PG-13",
+                //    Price = 2
+                //};
+
+                //var movieDirector1 = new MovieDirector();
+                //movieDirector1.Director = director;
+                //movieDirector1.Movie = movie5;
+                //director.MovieDirector.Add(movieDirector1);
 
 
-                //busqueda con clave primaria a travez de find
-                //var movie = context.Movies.Find(4);
-                //Console.WriteLine(movie);
+                //cuando agregamos movie5 a movieDirecto1.Movie, automaticamente se guarda la nueva pelicula
+                //a la tabla Movies y si ya esta guardada esta no se sobreescribre
 
-                var movieDirector = context.MovieDirectors.Find(1, 1);
-                Console.WriteLine(movieDirector);
 
-                var allMovieDirectorRelated = context.MovieDirectors
-                        .Include(x => x.Movie).Include(x => x.Director).ToList();
+                //agregar datos a tabla movieActors
+                var avengersUltron = context.Movies.Include(x => x.MovieActor).Last();
+                var avengersUltron2 = context.Movies.Select(x => x.MovieActor).Last();
 
-                //var allMovieActorRelated = context.MovieActors
-                //                               .Include(x => x.Movie).Include(x => x.Actor).ToList();
+                var actor = context.Actors.Include(x => x.MovieActor).Last();
 
-                //var movieActor = context.MovieActors.Find(2, 5);
-                //Console.WriteLine(movieActor.Movie.Title);
+                //var movieActor = new MovieActor();
+                //movieActor.Actor = actor;
+                //movieActor.Movie = avengersUltron;
 
-                //var movieD = context.Movies.Where(m => m.Title == "Ready Player One").Include(d => d.MovieDirector).
+                //avengersUltron.MovieActor.Add(movieActor);
+                //context.SaveChanges();
+                //Console.WriteLine("movieactor saved");
 
-                //Console.WriteLine(movie.Title);
-                //Console.WriteLine(movie.Genre);
-                //Console.WriteLine(movie.Description);
-                //Console.WriteLine(movie.Rating);
-                //Console.WriteLine(movie.ReleaseDate);
-                //Console.WriteLine(movie.MovieDirector);
+                //consultar su atributo titulo e imprimir el tipo de variable 
+                Console.WriteLine(avengersUltron.Title);
+                Console.WriteLine(avengersUltron2);
+                foreach (var item in avengersUltron2)
+                {
+                    Console.WriteLine(item.Movie.Title);
+                }
+
+                //consultar el segundo actor de la base de datos 1 forma
+                //var movie2 = context.Movies.Last();
+
 
             }
 
